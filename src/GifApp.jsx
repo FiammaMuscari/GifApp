@@ -8,15 +8,17 @@ export const GifApp = () => {
   const handleAddCategory = (value) => {
     setCategories([value, ...categories]);
   };
-
-  const handleOnRemove = index => {
-    const value = [...categories];
-    value.splice(index, 1);
-    setCategories(value);
-  };
+//eliminar por categoria corregido with filter
+  const handleOnRemove  = categoryToRemove => {
+    setCategories(
+        categories.filter((category) => category !== categoryToRemove)
+    );
+};
+//remove with empty array
   const handleRemoveAll = () => {
-    setCategories(categories.filter((category) => category !== category));
-  };
+    setCategories(['']);
+};
+
   
   return (
     <>
@@ -32,7 +34,7 @@ export const GifApp = () => {
       {
       React.Children.toArray(
       categories.map((category) => (
-                <><button className="delete" onClick={handleOnRemove}>eliminar</button><GifGrid className="categories" key={category} category={category}/></>
+                <><button className="delete" onClick={()=>handleOnRemove(category)}>eliminar</button><GifGrid className="categories" key={category} category={category}/></>
       ))
     )}
     </>
